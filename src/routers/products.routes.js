@@ -4,10 +4,10 @@ const productsController = require('../controllers/products.controller');
 
 const router = express.Router();
 
-router.post('/', productsController.insertProduct);
+router.get('/', productsController.allProducts);
 
 router.get('/:id', productsController.productById);
 
-router.get('/', productsController.allProducts);
+router.post('/', productsController.insertProduct);
 
 module.exports = router;

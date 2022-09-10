@@ -70,8 +70,8 @@ describe("Testing if the controller returns the right json", function () {
 
     await productsController.productById({ params: { id: 1 } }, res);
 
-    expect(res.status).to.have.been.calledWith(200);
-    expect(res.json).to.have.been.calledWith(wrongControllerProductMock.message);
+    expect(res.status).to.have.been.calledWith(404);
+    expect(res.json).to.have.been.calledWith({ message: wrongControllerProductMock.message });
   });
 
   afterEach(sinon.restore);
