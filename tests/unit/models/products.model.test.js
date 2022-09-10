@@ -20,5 +20,15 @@ describe("Testing if the products model functions is working correctly", functio
 
     expect(result).equals(productsMock[0]);
   });
+  
+  it('tests if the insert function is working correctly', async function () {
+    sinon.stub(connection, 'execute').resolves([ 99 ]);
+    // sinon.stub(connection, 'execute').resolves();
+    
+    const insertId = await productsModel.insertNewProduct('cell phone');
+    const newProduct = await productsModel.findProductById(insertId)
+    // expect(newProject)
+    console.log(newProduct);
+  });
   afterEach(sinon.restore);
 });
