@@ -1,0 +1,21 @@
+[
+  {
+    "_id": "1e2a9299-37df-4853-bda8-5068006bd47c",
+    "colId": "history",
+    "containerId": "",
+    "name": "INSERT PRODUCT",
+    "url": "localhost:3000/products",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2022-09-10T00:26:02.935Z",
+    "modified": "2022-09-10T00:36:05.693Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"name\": \"leonardo\"\n}",
+      "form": []
+    },
+    "tests": []
+  }
+]

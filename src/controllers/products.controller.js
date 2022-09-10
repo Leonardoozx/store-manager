@@ -13,7 +13,14 @@ const productById = async ({ params }, res) => {
   res.status(200).json(idProduct[0]);
 };
 
+const insertProduct = async ({ body }, res) => {
+  const newProductId = await productsModel.insertNewProduct(body.name);
+  const newProduct = await productsModel.findProductById(newProductId);
+  res.status(201).json(newProduct[0]);
+};
+
 module.exports = {
   allProducts,
   productById,
+  insertProduct,
 };
