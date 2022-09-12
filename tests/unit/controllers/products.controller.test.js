@@ -9,13 +9,11 @@ const { expect } = chai;
 const controllerProductsMock = require("./mocks/products.controller.mock");
 const productsController = require("../../../src/controllers/products.controller");
 const productsService = require("../../../src/services/products.service");
-const productsModel = require("../../../src/models/productsModel");
-const connection = require("../../../src/models/connection");
+const productsModel = require("../../../src/models/products.model");
 
 const {
   rightControllerProductMock,
   wrongControllerProductMock,
-  newProductMock,
   allProductsMock,
   reqBodyWithRightValues,
   reqBodyWithWrongValues,

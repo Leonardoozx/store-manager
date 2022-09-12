@@ -1,4 +1,4 @@
-const productsModel = require('../models/productsModel');
+const productsModel = require('../models/products.model');
 const productsService = require('../services/products.service');
 const nameValidation = require('../services/validations/validatesName');
 
