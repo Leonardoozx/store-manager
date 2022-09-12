@@ -17,5 +17,19 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "be8f6e09-c531-4f1e-8b44-a75275d15060",
+    "colId": "history",
+    "containerId": "",
+    "name": "GET PRODUCT 1 BY ID ",
+    "url": "localhost:3000/products/1",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-09-12T19:12:00.561Z",
+    "modified": "2022-09-12T19:12:00.697Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]

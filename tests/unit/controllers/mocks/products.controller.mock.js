@@ -23,16 +23,43 @@ const allProductsMock = [
   },
 ];
 
-const productIdMock = [
-  {
-    id: 3,
-    name: "Escudo do Capitão América",
+// const productIdMock = [
+//   {
+//     id: 3,
+//     name: "Escudo do Capitão América",
+//   },
+// ];
+
+const reqBodyWithWrongValues = {
+  body: {
+    name: "leo",
   },
-];
+};
+
+const reqBodyWithoutNameField = {
+  body: {
+    WRONG_NAME: "leonardo",
+  },
+};
+
+const reqBodyWithRightValues = {
+  body: {
+    name: "Playstation 5",
+  },
+};
+
+const newProductMock = {
+  id: 4,
+  name: reqBodyWithRightValues.name,
+}
 
 module.exports = {
   rightControllerProductMock,
   wrongControllerProductMock,
   allProductsMock,
-  productIdMock
+  // productIdMock,
+  reqBodyWithRightValues,
+  reqBodyWithoutNameField,
+  reqBodyWithWrongValues,
+  newProductMock,
 };
