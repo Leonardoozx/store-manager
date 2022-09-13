@@ -30,7 +30,29 @@ const findSaleById = async (saleId) => {
   return camelize(sale);
 };
 
+const lastSaleId = async () => {
+  const [sale] = await connection.execute(
+    'SELECT id FROM sales ORDER BY id DESC LIMIT 1',
+  );
+  return sale;
+};
+
+const insertNewSaleDate = async () => {
+  const date = new Date();
+  await connection.execute('INSERT INTO sales (date) VALUES (?)', [date]);
+};
+
+const insertNewSaleProduct = async ({ productId, quantity }, id) => {
+    await connection.execute(
+      'INSERT INTO sales_products (sale_id, product_id, quantity) VALUES (?, ?, ?)',
+      [id, productId, quantity],
+    );
+};
+
 module.exports = {
   allSales,
   findSaleById,
+  lastSaleId,
+  insertNewSaleDate,
+  insertNewSaleProduct,
 };
