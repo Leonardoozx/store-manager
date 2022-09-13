@@ -18,7 +18,9 @@ const productById = async ({ params }, res) => {
 
 const insertProduct = async ({ body }, res) => {
   const { type, message, status } = validatesName(body);
-  if (type) { return res.status(status).json({ message }); }
+  if (type) {
+    return res.status(status).json({ message });
+  }
   const newProductId = await productsModel.insertNewProduct(body.name);
   const newProduct = await productsModel.findProductById(newProductId);
   res.status(201).json(newProduct[0]);
@@ -27,16 +29,16 @@ const insertProduct = async ({ body }, res) => {
 const updateProductById = async ({ params, body }, res) => {
   const { type, message, status } = validatesName(body);
   if (type) return res.status(status).json({ message });
-  if (params) {
-    await productsModel.updateProductById(body.name, +params.id);
-    const product = await productsModel.findProductById(+params.id);
-    if (!product[0]) return res.status(404).json({ message: 'Product not found' });
-    const obj = {
-      id: +params.id,
-      name: body.name,
-    };
-    res.status(200).json(obj);
-  }
+  const obj = {
+    id: +params.id,
+    name: body.name,
+  };
+  res.status(200).json(obj);
+};
+
+const deleteProduct = async ({ params }, res) => {
+  await productsModel.deleteProductById(+params.id);
+  res.status(204).send();
 };
 
 module.exports = {
@@ -44,4 +46,5 @@ module.exports = {
   productById,
   insertProduct,
   updateProductById,
+  deleteProduct,
 };
