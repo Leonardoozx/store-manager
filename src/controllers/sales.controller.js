@@ -1,7 +1,5 @@
 const salesModel = require('../models/sales.model');
 const salesService = require('../services/sales.service');
-const validateSalesBody = require('../services/validations/validateSalesBody');
-const productsModel = require('../models/products.model');
 
 const showSales = async (_req, res) => {
   const sales = await salesModel.allSales();
@@ -16,17 +14,16 @@ const saleById = async ({ params }, res) => {
 };
 
 const insertSales = async ({ body }, res) => {
-  for (let i = 0; i < body.length; i += 1) {
-      const { type, message, status } = validateSalesBody(body[i]);
-    if (type) return res.status(status).json({ message });
-      // const opa = await productsModel.findProductById(productId);
-      // if (!opa[0]) return res.status(404).json({ message: 'Product not found' });
-      // const product = await productsModel.findProductById(saleBody.productId);
-      // if (!product[0]) { return res.status(404).json({ message: 'Product not found' }); }
-    // });
-  }
-  
-  res.status(201).json({ message: 'TAERADO' });
+  const [{ id: lastSaleId }] = await salesModel.lastSaleId();
+  const obj = {
+    id: lastSaleId + 1,
+    itemsSold: body,
+  };
+  salesModel.insertNewSaleDate();
+  body.forEach((bodyObj) => {
+    salesModel.insertNewSaleProduct(bodyObj, obj.id);
+  });
+  res.status(201).json(obj);
 };
 
 module.exports = {
