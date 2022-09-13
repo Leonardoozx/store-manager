@@ -1,7 +1,7 @@
 const express = require('express');
 
 const salesController = require('../controllers/sales.controller');
-const salesMiddleware = require('../middlewares/sales.controller.middleware');
+const salesMiddleware = require('../middlewares/sales.middleware');
 
 const router = express.Router();
 
