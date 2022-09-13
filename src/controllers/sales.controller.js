@@ -20,9 +20,10 @@ const insertSales = async ({ body }, res) => {
     itemsSold: body,
   };
   salesModel.insertNewSaleDate();
-  body.forEach((bodyObj) => {
-    salesModel.insertNewSaleProduct(bodyObj, obj.id);
-  });
+  await Promise.all(body.map(async (bodyObj) => {
+    const newSales = await salesModel.insertNewSaleProduct(bodyObj, obj.id);
+    return newSales;
+  }));
   res.status(201).json(obj);
 };
 
