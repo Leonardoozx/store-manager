@@ -1,6 +1,7 @@
 const express = require('express');
 
 const salesController = require('../controllers/sales.controller');
+const salesMiddleware = require('../middlewares/sales.controller.middleware');
 
 const router = express.Router();
 
@@ -8,6 +9,11 @@ router.get('/', salesController.showSales);
 
 router.get('/:id', salesController.saleById);
 
-router.post('/', salesController.insertSales);
+router.post(
+  '/',
+  salesMiddleware.validateSaleFields,
+  salesMiddleware.validateProductId,
+  salesController.insertSales,
+);
 
 module.exports = router;
