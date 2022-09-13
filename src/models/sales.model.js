@@ -42,10 +42,10 @@ const insertNewSaleDate = async () => {
   await connection.execute('INSERT INTO sales (date) VALUES (?)', [date]);
 };
 
-const insertNewSaleProduct = async ({ productId, quantity }) => {
+const insertNewSaleProduct = async ({ productId, quantity }, id) => {
     await connection.execute(
       'INSERT INTO sales_products (sale_id, product_id, quantity) VALUES (?, ?, ?)',
-      [15, productId, quantity],
+      [id, productId, quantity],
     );
 };
 

@@ -19,9 +19,9 @@ const insertSales = async ({ body }, res) => {
     id: lastSaleId + 1,
     itemsSold: body,
   };
+  salesModel.insertNewSaleDate();
   body.forEach((bodyObj) => {
-    salesModel.insertNewSaleDate();
-    salesModel.insertNewSaleProduct(bodyObj);
+    salesModel.insertNewSaleProduct(bodyObj, obj.id);
   });
   res.status(201).json(obj);
 };
