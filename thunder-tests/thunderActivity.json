@@ -31,5 +31,24 @@
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "27e0fe10-9e1d-450e-beab-d702bbbf04e3",
+    "colId": "history",
+    "containerId": "",
+    "name": "INSERT SALE",
+    "url": "localhost:3000/sales",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2022-09-12T21:29:26.153Z",
+    "modified": "2022-09-12T22:51:52.160Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "[{\n  \"productId\": 4,\n  \"quantity\": 0\n}]",
+      "form": []
+    },
+    "tests": []
   }
 ]

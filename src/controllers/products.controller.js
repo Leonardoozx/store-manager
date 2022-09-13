@@ -17,9 +17,8 @@ const productById = async ({ params }, res) => {
 };
 
 const insertProduct = async ({ body }, res) => {
-  const { type, message } = validatesName(body);
-  if (type && type === 'REQUIRED_FIELD') { return res.status(400).json({ message }); }
-  if (type && type === 'INVALID_FIELD') { return res.status(422).json({ message }); }
+  const { type, message, status } = validatesName(body);
+  if (type) { return res.status(status).json({ message }); }
   const newProductId = await productsModel.insertNewProduct(body.name);
   const newProduct = await productsModel.findProductById(newProductId);
   res.status(201).json(newProduct[0]);
