@@ -15,10 +15,7 @@ const saleById = async ({ params }, res) => {
 
 const insertSales = async ({ body }, res) => {
   const [{ id: lastSaleId }] = await salesModel.lastSaleId();
-  const obj = {
-    id: lastSaleId + 1,
-    itemsSold: body,
-  };
+  const obj = { id: lastSaleId + 1, itemsSold: body };
   salesModel.insertNewSaleDate();
   await Promise.all(body.map(async (bodyObj) => {
     const newSales = await salesModel.insertNewSaleProduct(bodyObj, obj.id);
