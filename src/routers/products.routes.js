@@ -5,13 +5,13 @@ const productsController = require('../controllers/products.controller');
 
 const router = express.Router();
 
-router.put('/:id', productsController.updateProductById);
+router.post('/', productsController.insertProduct);
 
 router.get('/', productsController.allProducts);
 
 router.get('/:id', productsController.productById);
 
-router.post('/', productsController.insertProduct);
+router.put('/:id', productsMiddleware.validateProductId, productsController.updateProductById);
 
 router.delete('/:id', productsMiddleware.validateProductId, productsController.deleteProduct);
 

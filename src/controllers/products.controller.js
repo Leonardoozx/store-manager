@@ -33,6 +33,7 @@ const updateProductById = async ({ params, body }, res) => {
     id: +params.id,
     name: body.name,
   };
+  await productsModel.updateProductById(obj.name, obj.id);
   res.status(200).json(obj);
 };
 
