@@ -5,8 +5,6 @@ const salesMiddleware = require('../middlewares/sales.middleware');
 
 const router = express.Router();
 
-router.get('/', salesController.showSales);
-
 router.get('/:id', salesController.saleById);
 
 router.post(
@@ -15,5 +13,7 @@ router.post(
   salesMiddleware.validateProductId,
   salesController.insertSales,
 );
+
+router.get('/', salesController.showSales);
 
 module.exports = router;
