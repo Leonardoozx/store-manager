@@ -43,5 +43,15 @@ describe("Testing if the products model functions is working correctly", functio
     await productsModel.deleteProductById(2);
   });
 
+  it("tests if the showProductByName function is working correctly", async function () {
+    sinon
+      .stub(connection, "execute")
+      .resolves([productsMock.allProductsMock[0]]);
+
+    const productByName = await productsModel.showProductsByName(productsMock.allProductsMock[ 0 ].name)
+    
+    expect(productByName).equals(productsMock.allProductsMock[0])
+  });
+
   afterEach(sinon.restore);
 });
