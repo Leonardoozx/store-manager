@@ -4,11 +4,11 @@
     "colId": "history",
     "containerId": "",
     "name": "INSERT PRODUCT",
-    "url": "localhost:3000/products",
-    "method": "POST",
+    "url": "localhost:3000/products/111",
+    "method": "PUT",
     "sortNum": 0,
     "created": "2022-09-10T00:26:02.935Z",
-    "modified": "2022-09-13T21:21:25.571Z",
+    "modified": "2022-09-14T04:11:11.996Z",
     "headers": [],
     "params": [],
     "body": {
@@ -41,12 +41,12 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2022-09-12T21:29:26.153Z",
-    "modified": "2022-09-13T23:02:03.522Z",
+    "modified": "2022-09-14T04:33:32.055Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "[{\n  \"productId\": 2,\n  \"quantity\": 10\n},\n{\n  \"productId\": 3,\n  \"quantity\": 100\n}]",
+      "raw": "[{\n  \"productId\": 1,\n  \"quantity\": 10\n},\n{\n  \"productId\": 1,\n  \"quantity\": 100\n}]",
       "form": []
     },
     "tests": []
@@ -60,7 +60,7 @@
     "method": "PUT",
     "sortNum": 0,
     "created": "2022-09-13T20:29:19.697Z",
-    "modified": "2022-09-13T21:43:19.907Z",
+    "modified": "2022-09-14T03:45:44.931Z",
     "headers": [],
     "params": [],
     "body": {
@@ -79,7 +79,7 @@
     "method": "DELETE",
     "sortNum": 0,
     "created": "2022-09-13T21:07:04.646Z",
-    "modified": "2022-09-13T21:22:08.463Z",
+    "modified": "2022-09-14T03:44:39.919Z",
     "headers": [],
     "params": [],
     "tests": []
