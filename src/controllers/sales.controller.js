@@ -41,7 +41,6 @@ const updateSaleById = async ({ params, body }, res) => {
   await Promise.all(
     body.map(
       async (bodyObj) => {
-        console.log(bodyObj);
         const newObj = await salesModel.insertNewSaleProduct(bodyObj, +params.id);
         return newObj;
       },
