@@ -16,6 +16,13 @@ router.post(
 
 router.get('/', salesController.showSales);
 
-router.delete('/:id', salesController.deleteSale);
+router.delete('/:id',
+  salesMiddleware.doesSaleExists, salesController.deleteSale);
+
+router.put('/:id',
+  salesMiddleware.doesSaleExists,
+  salesMiddleware.validateSaleFields,
+  salesMiddleware.validateProductId,
+  salesController.updateSaleById);
 
 module.exports = router;
