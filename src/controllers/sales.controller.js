@@ -27,10 +27,27 @@ const insertSales = async ({ body }, res) => {
 };
 
 const deleteSale = async ({ params }, res) => {
-  const idSale = await salesModel.findSaleById(+params.id);
-  if (!idSale[0]) return res.status(404).json({ message: 'Sale not found' });
   await salesModel.deleteSale(+params.id);
   res.status(204).send();
+};
+
+// Referência: https://stackoverflow.com/questions/70708529/can-multiple-rows-with-the-same-id-be-updated-at-the-same-time-with-one-query
+const updateSaleById = async ({ params, body }, res) => {
+  await salesModel.deleteSale(+params.id);
+  const obj = {
+    saleId: +params.id,
+    itemsUpdated: body,
+  };
+  await Promise.all(
+    body.map(
+      async (bodyObj) => {
+        console.log(bodyObj);
+        const newObj = await salesModel.insertNewSaleProduct(bodyObj, +params.id);
+        return newObj;
+      },
+    ),
+  );
+  res.status(200).json(obj);
 };
 
 module.exports = {
@@ -38,4 +55,5 @@ module.exports = {
   insertSales,
   saleById,
   deleteSale,
+  updateSaleById,
 };
