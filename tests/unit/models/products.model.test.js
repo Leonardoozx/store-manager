@@ -48,9 +48,11 @@ describe("Testing if the products model functions is working correctly", functio
       .stub(connection, "execute")
       .resolves([productsMock.allProductsMock[0]]);
 
-    const productByName = await productsModel.showProductsByName(productsMock.allProductsMock[ 0 ].name)
-    
-    expect(productByName).equals(productsMock.allProductsMock[0])
+    const productByName = await productsModel.showProductsByName(
+      productsMock.allProductsMock[0].name
+    );
+
+    expect(productByName).equals(productsMock.allProductsMock[0]);
   });
 
   afterEach(sinon.restore);

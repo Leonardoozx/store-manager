@@ -10,6 +10,7 @@ const controllerProductsMock = require("./mocks/products.controller.mock");
 const productsController = require("../../../src/controllers/products.controller");
 const productsService = require("../../../src/services/products.service");
 const productsModel = require("../../../src/models/products.model");
+const connection = require("../../../src/models/connection");
 
 const {
   rightControllerProductMock,
@@ -18,9 +19,17 @@ const {
   reqBodyWithRightValues,
   reqBodyWithWrongValues,
   reqBodyWithoutNameField,
+  rightInsertReqBody,
+  reqQueryMock,
+  emptyReqQueryMock
 } = controllerProductsMock;
 
 describe("Testing if the controller returns the right json", function () {
+  const RESPONSE_WITHOUT_NAME_FIELD = { message: '"name" is required' };
+  const RESPONSE_WRONG_NAME_LENGTH = {
+    message: '"name" length must be at least 5 characters long',
+  };
+
   it("testing if it returns all the right products", async function () {
     const res = {};
     res.status = sinon.stub().returns(res);
@@ -79,8 +88,6 @@ describe("Testing if the controller returns the right json", function () {
     res.status = sinon.stub().returns(res);
     res.json = sinon.stub().returns();
 
-    const RESPONSE_WITHOUT_NAME_FIELD = { message: '"name" is required' };
-
     const req = reqBodyWithoutNameField;
 
     await productsController.insertProduct(req, res);
@@ -93,10 +100,6 @@ describe("Testing if the controller returns the right json", function () {
     const res = {};
     res.status = sinon.stub().returns(res);
     res.json = sinon.stub().returns();
-
-    const RESPONSE_WRONG_NAME_LENGTH = {
-      message: '"name" length must be at least 5 characters long',
-    };
 
     const req = reqBodyWithWrongValues;
 
@@ -116,6 +119,89 @@ describe("Testing if the controller returns the right json", function () {
     await productsController.insertProduct(req, res);
 
     expect(res.status).to.have.been.calledWith(201);
+  });
+
+  it("tests if it is not possible to insert a product with missing fields", async function () {
+    const res = {};
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    const req = reqBodyWithRightValues;
+
+    await productsController.insertProduct(req, res);
+
+    expect(res.status).to.have.been.calledWith(201);
+  });
+
+  it("tests if it is not possible to update a product with missing name field", async function () {
+    const res = {};
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    const req = { body: {} };
+
+    await productsController.updateProductById(req, res);
+
+    expect(res.status).to.have.been.calledWith(400);
+    expect(res.json).to.have.been.calledWith(RESPONSE_WITHOUT_NAME_FIELD);
+  });
+
+  it("tests if it is not possible to update a product with wrong name length", async function () {
+    const res = {};
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    const req = reqBodyWithWrongValues;
+
+    await productsController.updateProductById(req, res);
+
+    expect(res.status).to.have.been.calledWith(422);
+    expect(res.json).to.have.been.calledWith(RESPONSE_WRONG_NAME_LENGTH);
+  });
+
+  it("tests if it is possible to update a product with right body", async function () {
+    const res = {};
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    const req = rightInsertReqBody;
+
+    const RIGHT_RESPONSE = { id: 1, name: "Laptop" };
+
+    await productsController.updateProductById(req, res);
+
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith(RIGHT_RESPONSE);
+  });
+
+  it("tests if it is possible to show a product with right query", async function () {
+    const res = {};
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    const req = reqQueryMock;
+
+    sinon.stub(connection, 'execute').resolves([{ id: 1, name: 'Martelo de Thor' }])
+
+    await productsController.showProductByQuery(req, res);
+
+    expect(res.status).to.have.been.calledWith(200);
+  });
+
+  it("tests if it is possible to show a product with right query", async function () {
+    const res = {};
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    const req = emptyReqQueryMock;
+
+    sinon
+      .stub(connection, "execute")
+      .resolves([allProductsMock]);
+
+    await productsController.showProductByQuery(req, res);
+
+    expect(res.status).to.have.been.calledWith(200);
   });
 
   afterEach(sinon.restore);

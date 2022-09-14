@@ -23,16 +23,9 @@ const allProductsMock = [
   },
 ];
 
-// const productIdMock = [
-//   {
-//     id: 3,
-//     name: "Escudo do Capitão América",
-//   },
-// ];
-
 const reqBodyWithWrongValues = {
   body: {
-    name: "leo",
+    name: "capa",
   },
 };
 
@@ -51,15 +44,30 @@ const reqBodyWithRightValues = {
 const newProductMock = {
   id: 4,
   name: reqBodyWithRightValues.name,
-}
+};
+
+const rightInsertReqBody = {
+  params: { id: "1" },
+  body: { name: "Laptop" },
+};
+
+const reqQueryMock = {
+  query: { q: "Martelo" },
+};
+
+const emptyReqQueryMock = {
+  query: { q: "" },
+};
 
 module.exports = {
   rightControllerProductMock,
   wrongControllerProductMock,
   allProductsMock,
-  // productIdMock,
   reqBodyWithRightValues,
   reqBodyWithoutNameField,
   reqBodyWithWrongValues,
   newProductMock,
+  rightInsertReqBody,
+  reqQueryMock,
+  emptyReqQueryMock,
 };
