@@ -39,14 +39,18 @@ const lastSaleId = async () => {
 
 const insertNewSaleDate = async () => {
   const date = new Date();
-  await connection.execute('INSERT INTO sales (date) VALUES (?)', [date]);
+  const [insertId] = await connection.execute(
+    'INSERT INTO sales (date) VALUES (?)',
+    [date],
+  );
+  return insertId;
 };
 
 const insertNewSaleProduct = async ({ productId, quantity }, id) => {
-    await connection.execute(
-      'INSERT INTO sales_products (sale_id, product_id, quantity) VALUES (?, ?, ?)',
-      [id, productId, quantity],
-    );
+  await connection.execute(
+    'INSERT INTO sales_products (sale_id, product_id, quantity) VALUES (?, ?, ?)',
+    [id, productId, quantity],
+  );
 };
 
 module.exports = {
