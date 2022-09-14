@@ -73,7 +73,10 @@ describe("Testing if the all the sales model functions are working correctly", f
     expect(newSale[0].productId).equals(salesModelMock.newInsertedSale[0].productId);
     expect(newSale[0].quantity).equals(salesModelMock.newInsertedSale[0].quantity);
     expect(newSale[0].date).equals(salesModelMock.newInsertedSale[0].date);
+  });
 
+  it('tests if the deleteSale function is working correctly', async function () {
+    await salesModel.deleteSale(1)
   });
 
   afterEach(sinon.restore);
