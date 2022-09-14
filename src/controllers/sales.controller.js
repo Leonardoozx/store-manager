@@ -17,15 +17,25 @@ const insertSales = async ({ body }, res) => {
   const [{ id: lastSaleId }] = await salesModel.lastSaleId();
   const obj = { id: lastSaleId + 1, itemsSold: body };
   salesModel.insertNewSaleDate();
-  await Promise.all(body.map(async (bodyObj) => {
-    const newSales = await salesModel.insertNewSaleProduct(bodyObj, obj.id);
-    return newSales;
-  }));
+  await Promise.all(
+    body.map(async (bodyObj) => {
+      const newSales = await salesModel.insertNewSaleProduct(bodyObj, obj.id);
+      return newSales;
+    }),
+  );
   res.status(201).json(obj);
+};
+
+const deleteSale = async ({ params }, res) => {
+  const idSale = await salesModel.findSaleById(+params.id);
+  if (!idSale[0]) return res.status(404).json({ message: 'Sale not found' });
+  await salesModel.deleteSale(+params.id);
+  res.status(204).send();
 };
 
 module.exports = {
   showSales,
   insertSales,
   saleById,
+  deleteSale,
 };
