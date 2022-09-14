@@ -59,7 +59,6 @@ describe("Testing if the sales controllers are working correctly", function () {
       id: 3,
       itemsSold: [{ productId: 1, quantity: 10 }],
     };
-
     await salesController.insertSales(req, res);
 
     expect(res.status).to.have.been.calledWith(201);
