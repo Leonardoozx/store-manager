@@ -42,10 +42,20 @@ const deleteProduct = async ({ params }, res) => {
   res.status(204).send();
 };
 
+const showProductByQuery = async ({ query }, res) => {
+  if (query.q !== '') {
+    const productByName = await productsModel.showProductsByName(query.q);
+    return res.status(200).json(productByName);
+  }
+  const showAllProducts = await productsModel.allProducts();
+  res.status(200).json(showAllProducts);
+};
+
 module.exports = {
   allProducts,
   productById,
   insertProduct,
   updateProductById,
   deleteProduct,
+  showProductByQuery,
 };

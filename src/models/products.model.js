@@ -37,10 +37,19 @@ const deleteProductById = async (id) => {
   return affectedRows;
 };
 
+const showProductsByName = async (name) => {
+  const [productByName] = await connection.execute(
+    'SELECT * FROM products WHERE name LIKE CONCAT("%", ?,"%")',
+    [name],
+  );
+  return productByName;
+};
+
 module.exports = {
   allProducts,
   findProductById,
   insertNewProduct,
   updateProductById,
   deleteProductById,
+  showProductsByName,
 };

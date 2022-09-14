@@ -116,5 +116,25 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "74b1cb34-c005-4b44-8682-67e58e5ca40d",
+    "colId": "history",
+    "containerId": "",
+    "name": "GET PRODUCT BY QUERY",
+    "url": "localhost:3000/products/search?q=",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-09-14T19:59:22.982Z",
+    "modified": "2022-09-14T20:18:51.991Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "q",
+        "value": "",
+        "isPath": false
+      }
+    ],
+    "tests": []
   }
 ]
