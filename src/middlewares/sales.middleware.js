@@ -1,5 +1,6 @@
 const validateSalesBody = require('../services/validations/validateSalesBody');
 const productsModel = require('../models/products.model');
+const salesModel = require('../models/sales.model');
 
 const validateSaleFields = ({ body }, res, next) => {
   for (let i = 0; i < body.length; i += 1) {
@@ -22,7 +23,14 @@ const validateProductId = async ({ body }, res, next) => {
   next();
 };
 
+const doesSaleExists = async ({ params }, res, next) => {
+  const idSale = await salesModel.findSaleById(+params.id);
+  if (!idSale[0]) return res.status(404).json({ message: 'Sale not found' });
+  next();
+};
+
 module.exports = {
   validateSaleFields,
   validateProductId,
+  doesSaleExists,
 };
