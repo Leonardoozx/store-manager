@@ -20,19 +20,28 @@ describe("Testing if the products model functions is working correctly", functio
 
     expect(result).equals(productsMock[0]);
   });
-  
-  it('tests if the insert function is working correctly', async function () {
+
+  it("tests if the insert function is working correctly", async function () {
     sinon
       .stub(connection, "execute")
       .onFirstCall()
       .resolves([99])
       .onSecondCall()
       .resolves([productsMock.newProductMock]);
-    
-    const insertId = await productsModel.insertNewProduct('cell phone');
+
+    const insertId = await productsModel.insertNewProduct("cell phone");
     const newProduct = await productsModel.findProductById(insertId);
 
     expect(newProduct).equals(productsMock.newProductMock);
   });
+
+  it("tests if the update product function is working correctly", async function () {
+    await productsModel.updateProductById("Mjolnir", 1);
+  });
+
+  it("tests if the delete product function is working correctly", async function () {
+    await productsModel.deleteProductById(2);
+  });
+
   afterEach(sinon.restore);
 });
