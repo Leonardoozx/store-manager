@@ -21,15 +21,20 @@ const insertNewProduct = async (productName) => {
   return insertId;
 };
 
-const updateProductById = async (name, id) => {
-  await connection.execute('UPDATE products SET name = ? WHERE id = ?', [
-    name,
-    id,
-  ]);
+const updateProductById = async (newName, id) => {
+  const [{ info }] = await connection.execute(
+    'UPDATE products SET name = ? WHERE id = ?',
+    [newName, id],
+  );
+  return info;
 };
 
 const deleteProductById = async (id) => {
-  await connection.execute('DELETE FROM products WHERE id = ?', [id]);
+  const [{ affectedRows }] = await connection.execute(
+    'DELETE FROM products WHERE id = ?',
+    [id],
+  );
+  return affectedRows;
 };
 
 module.exports = {
