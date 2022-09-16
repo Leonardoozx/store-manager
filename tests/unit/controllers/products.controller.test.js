@@ -21,7 +21,7 @@ const {
   reqBodyWithoutNameField,
   rightInsertReqBody,
   reqQueryMock,
-  emptyReqQueryMock
+  emptyReqQueryMock,
 } = controllerProductsMock;
 
 describe("Testing if the controller returns the right json", function () {
@@ -40,7 +40,7 @@ describe("Testing if the controller returns the right json", function () {
       .resolves(allProductsMock.allProductsMock);
 
     sinon
-      .stub(productsService, "validateProductId")
+      .stub(productsService, "findProductById")
       .resolves(rightControllerProductMock);
 
     await productsController.allProducts({}, res);
@@ -56,10 +56,6 @@ describe("Testing if the controller returns the right json", function () {
 
     sinon.stub(productsModel, "findProductById").resolves([allProductsMock[0]]);
 
-    sinon
-      .stub(productsService, "validateProductId")
-      .resolves(rightControllerProductMock);
-
     await productsController.productById({ params: { id: 1 } }, res);
 
     expect(res.status).to.have.been.calledWith(200);
@@ -72,7 +68,7 @@ describe("Testing if the controller returns the right json", function () {
     res.json = sinon.stub().returns();
 
     sinon
-      .stub(productsService, "validateProductId")
+      .stub(productsService, "findProductById")
       .resolves(wrongControllerProductMock);
 
     await productsController.productById({ params: { id: 1 } }, res);
@@ -181,7 +177,9 @@ describe("Testing if the controller returns the right json", function () {
 
     const req = reqQueryMock;
 
-    sinon.stub(connection, 'execute').resolves([{ id: 1, name: 'Martelo de Thor' }])
+    sinon
+      .stub(connection, "execute")
+      .resolves([{ id: 1, name: "Martelo de Thor" }]);
 
     await productsController.showProductByQuery(req, res);
 
@@ -195,9 +193,7 @@ describe("Testing if the controller returns the right json", function () {
 
     const req = emptyReqQueryMock;
 
-    sinon
-      .stub(connection, "execute")
-      .resolves([allProductsMock]);
+    sinon.stub(connection, "execute").resolves([allProductsMock]);
 
     await productsController.showProductByQuery(req, res);
 
